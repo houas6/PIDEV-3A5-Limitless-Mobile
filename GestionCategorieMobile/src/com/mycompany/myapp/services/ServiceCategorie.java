@@ -12,6 +12,8 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
 import com.mycompany.myapp.entities.Categorie;
+import java.io.ByteArrayInputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -58,7 +60,10 @@ public class ServiceCategorie {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return resultOK;
     }
-    /********** Affichage********************/
+    
+    
+    
+   /********** Affichage********************/
       
      public ArrayList<Categorie> affichageCategorie()
     {
@@ -90,20 +95,20 @@ public class ServiceCategorie {
                         System.out.println(obj);
                        Categorie c = new Categorie();
                        System.out.println(obj);
-                        String nom = obj.get("nomCategorie").toString();
+                        String nom = obj.get("nomcategorie").toString();
                         
-                         int id = Integer.parseInt(obj.get("idCategorie").toString());
+                         float id = Float.parseFloat(obj.get("idcategorie").toString());
                        ////  String Description = obj.get("description").toString();
                        
 
-                       c.setIdcategorie(id);
+                       c.setIdcategorie((int)id);
                         c.setNomcategorie(nom);
                         
                         //c.setDescription(Description);
                         
                         
                         result.add(c);
-                        //System.out.println(c.getNomcategorie());
+                        
                     }
                     }
                 }
@@ -120,6 +125,9 @@ public class ServiceCategorie {
         return result;
     
     }    
+    
+
+
 
    
      /************************************************************************************************/    
