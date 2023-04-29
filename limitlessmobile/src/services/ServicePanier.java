@@ -86,16 +86,16 @@ public class ServicePanier {
             java.util.List<Map<String, Object>> list = (java.util.List<Map<String, Object>>) ReclamationsListJson.get("root");
             for (Map<String, Object> obj : list) {
                 
-               // float id = Float.parseFloat(obj.get("idpanier").toString());
+               float id = Float.parseFloat(obj.get("idpanier").toString());
               
-               // float iduser=Float.parseFloat(obj.get("iduser").toString());
+               //float iduser=Float.parseFloat(obj.get("iduser").toString());
                  float quantite=Float.parseFloat(obj.get("quantite").toString());
                 String nomproduit = obj.get("nomproduit").toString();
                  float prix=Float.parseFloat(obj.get("prix").toString());
                   t.setQuantite((int)quantite);
                  totale+=prix*quantite;
                  
-               // t.setId_panier((int) id);
+                t.setId_panier((int) id);
                
                 // t.setId_user((int)iduser);
                // t.setStatus(((int) Float.parseFloat(obj.get("status").toString())));
@@ -107,8 +107,8 @@ public class ServicePanier {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-        t.setTotal_panier(totale);
-        paniers.add(t);
+      //  t.setTotal_panier(totale);
+        //paniers.add(t);
         return paniers;
     }
     public ArrayList<panier> getAllReclamations(int id){
@@ -147,6 +147,45 @@ public class ServicePanier {
      
      
      
+     public boolean deletepanier(int id) {
+        System.out.println("********");
+        //String url = Statics.BASE_URL + "create?name=" + t.getName() + "&status=" + t.getStatus();
+       String url =DB.BASE_URL+"/deletepanier?id="+id;
+        req.setUrl(url);
+        req.setPost(false);
+        System.out.println(url);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200; //Code HTTP 200 OK
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
+     
+     
+     
+     
+     
+       public boolean increment(int id) {
+        System.out.println("********");
+        //String url = Statics.BASE_URL + "create?name=" + t.getName() + "&status=" + t.getStatus();
+       String url =DB.BASE_URL+"/increment?id="+id;
+        req.setUrl(url);
+        req.setPost(false);
+        System.out.println(url);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200; //Code HTTP 200 OK
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
      
      
      
@@ -155,14 +194,23 @@ public class ServicePanier {
      
      
      
-     
-     
-     
-     
-     
-     
-     
-     
+         public boolean decrement(int id) {
+        System.out.println("********");
+        //String url = Statics.BASE_URL + "create?name=" + t.getName() + "&status=" + t.getStatus();
+       String url =DB.BASE_URL+"/decrement?id="+id;
+        req.setUrl(url);
+        req.setPost(false);
+        System.out.println(url);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200; //Code HTTP 200 OK
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
      
      
      

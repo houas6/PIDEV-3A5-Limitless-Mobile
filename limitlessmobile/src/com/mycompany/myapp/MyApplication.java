@@ -14,6 +14,7 @@ import java.io.IOException;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.io.NetworkEvent;
 import gui.addpanier;
+import gui.afficherpanier;
 
 
 /**
@@ -53,7 +54,7 @@ public class MyApplication {
             current.show();
             return;
         }
-        new addpanier(theme).show();
+        new afficherpanier(theme).show();
       
     }
 

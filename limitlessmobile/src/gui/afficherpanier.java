@@ -108,40 +108,56 @@ public class afficherpanier extends BaseForm{
                  for (panier fi : panier) {
                             Container ct = new Container(BoxLayout.y());
                             
-                            Label l = new Label("nomproduit : "+fi.getQuantite());
-                            Label l2 = new Label("totale : "+fi.getTotal_panier());
+                            Label l = new Label("nomproduit : "+fi.getId_panier());
+                            Label l2 = new Label("quantite : "+fi.getQuantite());
+                            Label l3 = new Label("totale : "+fi.getTotal_panier());
                            
                            
                             ct.add(l);
                            ct.add(l2);
-                          // ct.add(l3);
+                           ct.add(l3);
 
                             
 
-                            Button Modif = new Button("Modifier");
+                            Button plus = new Button("+");
+                            Button minus = new Button("-");
                             Button Supprimer = new Button("Supprimer");
-//                            Modif.addActionListener(new ActionListener() {
-//                                            @Override
-//            public void actionPerformed(ActionEvent evt) {               
-//                               new ModifierReclamation(res,current,fi).show();                   
-//                                                    }   
-//                                            });
-//                          Supprimer.addActionListener(new ActionListener() {
-//                                            @Override
-//            public void actionPerformed(ActionEvent evt) {               
-//                if (Dialog.show("Confirmation", "Voulez vous supprimer cett exercice ?", "Oui", "Annuler")) {
-//
-//               ServiceReclamation.getinstance().deleteReclamation(fi.getId());
-//            // Success message
-//            Dialog.show("Success", "Reclamation deleted successfully", "OK", null);
-//             new AllReclamation(res).show();
-//
-//
-//                            }
-//                   
-//                }   
-//        });
-                       ct.add(Modif);
+                            plus.addActionListener(new ActionListener() {
+                                            @Override
+            public void actionPerformed(ActionEvent evt) {               
+                              ServicePanier.getInstance().increment(fi.getId_panier()); 
+                               new afficherpanier(res).show();
+                                                    }   
+                                            });
+                                 minus.addActionListener(new ActionListener() {
+                                            @Override
+            public void actionPerformed(ActionEvent evt) {               
+                              ServicePanier.getInstance().decrement(fi.getId_panier()); 
+                               new afficherpanier(res).show();
+                                                    }   
+                                            });
+                            
+                            
+                            
+                            
+                            
+                          Supprimer.addActionListener(new ActionListener() {
+                                            @Override
+            public void actionPerformed(ActionEvent evt) {               
+                if (Dialog.show("Confirmation", "Voulez vous supprimer cett exercice ?", "Oui", "Annuler")) {
+
+               ServicePanier.getInstance().deletepanier(fi.getId_panier());
+            // Success message
+            Dialog.show("Success", "Reclamation deleted successfully", "OK", null);
+             new afficherpanier(res).show();
+
+
+                            }
+                   
+                }   
+        });
+                       ct.add(plus);
+                       ct.add(minus);
                        ct.add(Supprimer);
 
 
