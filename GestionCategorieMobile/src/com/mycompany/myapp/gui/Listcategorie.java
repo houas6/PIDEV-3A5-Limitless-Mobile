@@ -159,19 +159,19 @@ refreshButton.setIcon(icon1);
                             
                             
                             add(m);
-Button btnModifier = new Button();
-FontImage.setMaterialIcon(btnModifier, FontImage.MATERIAL_EDIT);
-m.addComponent(BorderLayout.SOUTH, btnModifier);
-btnModifier.addActionListener(e -> {
-    new modifiercategorie(this).show();
-});
+        Button btnModifier = new Button();
+        FontImage.setMaterialIcon(btnModifier, FontImage.MATERIAL_EDIT);
+        m.addComponent(BorderLayout.SOUTH, btnModifier);
+        btnModifier.addActionListener(e -> {
+            new modifiercategorie(this).show();
+        });
 
-Button btnSupprimer = new Button();
-Image icon = FontImage.createMaterial(FontImage.MATERIAL_DELETE, "ButtonIcon", 5);
-btnSupprimer.setIcon(icon);
-m.addComponent(BorderLayout.WEST, btnSupprimer);
-btnSupprimer.addActionListener(e -> {
-    Dialog dig = new Dialog("Suppression");
+        Button btnSupprimer = new Button();
+        Image icon = FontImage.createMaterial(FontImage.MATERIAL_DELETE, "ButtonIcon", 5);
+        btnSupprimer.setIcon(icon);
+        m.addComponent(BorderLayout.WEST, btnSupprimer);
+        btnSupprimer.addActionListener(e -> {
+            Dialog dig = new Dialog("Suppression");
     if (dig.show("Suppression", "Êtes-vous sûr de vouloir supprimer cet élément ?", "Annuler", "Oui")) {
         dig.dispose();
     } else {
