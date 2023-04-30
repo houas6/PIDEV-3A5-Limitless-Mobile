@@ -13,6 +13,7 @@ import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
 import com.mycompany.myapp.entities.Categorie;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +66,7 @@ public class ServiceCategorie {
     
    /********** Affichage********************/
       
-     public ArrayList<Categorie> affichageCategorie()
+    public ArrayList<Categorie> affichageCategorie()
     {
 
         ArrayList<Categorie> result = new ArrayList<>();
@@ -95,20 +96,20 @@ public class ServiceCategorie {
                         System.out.println(obj);
                        Categorie c = new Categorie();
                        System.out.println(obj);
-                        String nom = obj.get("nomcategorie").toString();
+                        String type = obj.get("nomcategorie").toString();
                         
                          float id = Float.parseFloat(obj.get("idcategorie").toString());
                        ////  String Description = obj.get("description").toString();
                        
 
                        c.setIdcategorie((int)id);
-                        c.setNomcategorie(nom);
+                        c.setNomcategorie(type);
                         
                         //c.setDescription(Description);
                         
                         
                         result.add(c);
-                        
+                        System.out.println(c.getNomcategorie());
                     }
                     }
                 }
@@ -125,6 +126,10 @@ public class ServiceCategorie {
         return result;
     
     }    
+
+
+    
+       
     
 
 

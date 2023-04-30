@@ -49,9 +49,11 @@ public class MyApplication {
     }
     
     public void start() {
+   
           HomeForm home=new HomeForm();
      home.show();
-    }
+}
+
 
     public void stop() {
         current = getCurrentForm();
