@@ -34,6 +34,7 @@ import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import java.util.ArrayList;
 import models.panier;
+import models.produit;
 import services.ServicePanier;
 
 /**
@@ -101,21 +102,34 @@ public class afficherpanier extends BaseForm{
         
         
         ButtonGroup barGroup = new ButtonGroup();
-                  Container co=new Container(BoxLayout.xCenter());;
-                    ArrayList <panier> panier = new ArrayList();
-                    panier = ServicePanier.getInstance().getAllReclamations(1);
-
-                 for (panier fi : panier) {
-                            Container ct = new Container(BoxLayout.y());
+                  Container co=new Container(BoxLayout.xCenter());
+                   // ArrayList <panier> panier = new ArrayList();
+                   
+                   panier panier = ServicePanier.getInstance().getAllReclamations(1);
+                   ArrayList<produit> prod=panier.getProducts();
+                   
+                           
+                           
                             
-                            Label l = new Label("nomproduit : "+fi.getId_panier());
-                            Label l2 = new Label("quantite : "+fi.getQuantite());
-                            Label l3 = new Label("totale : "+fi.getTotal_panier());
                            
+
+                 for (produit fi : prod) {
+                     Container ct = new Container(BoxLayout.y());
+                     
+                            //Label l3 = new Label("totale : "+panier.getTotal_panier());
+                            
+                          System.out.println(panier.getId_user());
+                          System.out.println(fi.getId_produit());
+                       int qt=ServicePanier.getInstance().getqt(panier.getId_user(), fi.getId_produit());
+                        //   ct.add(l3);
                            
-                            ct.add(l);
+                                Label l = new Label("nomproduit : "+fi.getNom_produit());
+                                ct.add(l);
+                                Label l4 = new Label("prix : "+fi.getPrix());
+                                ct.add(l4);
+                           Label l2 = new Label("quantite : "+qt);
                            ct.add(l2);
-                           ct.add(l3);
+                           
 
                             
 
@@ -125,14 +139,14 @@ public class afficherpanier extends BaseForm{
                             plus.addActionListener(new ActionListener() {
                                             @Override
             public void actionPerformed(ActionEvent evt) {               
-                              ServicePanier.getInstance().increment(fi.getId_panier()); 
+                              ServicePanier.getInstance().increment(panier.getId_panier()); 
                                new afficherpanier(res).show();
                                                     }   
                                             });
                                  minus.addActionListener(new ActionListener() {
                                             @Override
             public void actionPerformed(ActionEvent evt) {               
-                              ServicePanier.getInstance().decrement(fi.getId_panier()); 
+                              ServicePanier.getInstance().decrement(panier.getId_panier()); 
                                new afficherpanier(res).show();
                                                     }   
                                             });
@@ -146,7 +160,7 @@ public class afficherpanier extends BaseForm{
             public void actionPerformed(ActionEvent evt) {               
                 if (Dialog.show("Confirmation", "Voulez vous supprimer cett exercice ?", "Oui", "Annuler")) {
 
-               ServicePanier.getInstance().deletepanier(fi.getId_panier());
+               ServicePanier.getInstance().deletepanier(panier.getId_panier());
             // Success message
             Dialog.show("Success", "Reclamation deleted successfully", "OK", null);
              new afficherpanier(res).show();
@@ -163,8 +177,9 @@ public class afficherpanier extends BaseForm{
 
                        Label separator = new Label("","Separator");
                        ct.add(separator);
-                       add(ct);
+                     add(ct); 
                }
+                  
     }
         
     private void addTab(Tabs swipe, Image img, Label spacer, String likesStr, String commentsStr, String text) {

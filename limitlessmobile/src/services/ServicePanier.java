@@ -9,6 +9,8 @@ import DB.DB;
 import com.codename1.io.CharArrayReader;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
+import static com.codename1.io.Log.p;
+import static com.codename1.io.Log.p;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
@@ -28,6 +30,8 @@ import models.produit;
  */
 public class ServicePanier {
     public  ArrayList<panier> paniers =new ArrayList();
+    panier pan;
+    int quantitee;
       public static ServicePanier instance = null;
     public boolean resultOK;
     private ConnectionRequest req;
@@ -70,10 +74,10 @@ public class ServicePanier {
      
      
      
-      
-     public ArrayList<panier> parseReclamations(String jsonText) {
+       public panier parseReclamations(String jsonText) {
          float totale=0;
          panier t = new panier();
+         
         System.out.println("+++++++++++");
         System.out.println(jsonText);
         System.out.println("++++++++++++");
@@ -88,16 +92,26 @@ public class ServicePanier {
                 
                float id = Float.parseFloat(obj.get("idpanier").toString());
               
-               //float iduser=Float.parseFloat(obj.get("iduser").toString());
+               float iduser=Float.parseFloat(obj.get("iduser").toString());
                  float quantite=Float.parseFloat(obj.get("quantite").toString());
                 String nomproduit = obj.get("nomproduit").toString();
+                  String image = obj.get("image").toString();
                  float prix=Float.parseFloat(obj.get("prix").toString());
+                 float idprod=Float.parseFloat(obj.get("idprod").toString());
+                 
+                 
+                 produit p=new produit((int)idprod, nomproduit,prix, image);
+                 
+                 
+                 t.addproduct(p);
+                 
+                 
                   t.setQuantite((int)quantite);
                  totale+=prix*quantite;
                  
                 t.setId_panier((int) id);
                
-                // t.setId_user((int)iduser);
+                t.setId_user((int)iduser);
                // t.setStatus(((int) Float.parseFloat(obj.get("status").toString())));
                
                 
@@ -109,9 +123,60 @@ public class ServicePanier {
         }
       //  t.setTotal_panier(totale);
         //paniers.add(t);
-        return paniers;
+        return t;
     }
-    public ArrayList<panier> getAllReclamations(int id){
+//     public ArrayList<panier> parseReclamations(String jsonText) {
+//         float totale=0;
+//         panier t = new panier();
+//
+//        System.out.println("+++++++++++");
+//        System.out.println(jsonText);
+//        System.out.println("++++++++++++");
+//        try {
+//            paniers = new ArrayList<>();
+//            JSONParser j = new JSONParser();
+//            Map<String, Object> ReclamationsListJson
+//                    = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+//
+//            java.util.List<Map<String, Object>> list = (java.util.List<Map<String, Object>>) ReclamationsListJson.get("root");
+//            for (Map<String, Object> obj : list) {
+//
+//               float id = Float.parseFloat(obj.get("idpanier").toString());
+//
+//               //float iduser=Float.parseFloat(obj.get("iduser").toString());
+//                 float quantite=Float.parseFloat(obj.get("quantite").toString());
+//                String nomproduit = obj.get("nomproduit").toString();
+//                  String image = obj.get("image").toString();
+//                 float prix=Float.parseFloat(obj.get("prix").toString());
+//                 float idprod=Float.parseFloat(obj.get("idprod").toString());
+//
+//
+//                 produit p=new produit((int)idprod, nomproduit,prix, image);
+//
+//
+//                 t.addproduct(p);
+//
+//
+//                  t.setQuantite((int)quantite);
+//                 totale+=prix*quantite;
+//
+//                t.setId_panier((int) id);
+//
+//                // t.setId_user((int)iduser);
+//               // t.setStatus(((int) Float.parseFloat(obj.get("status").toString())));
+//
+//
+//                paniers.add(t);
+//            }
+//
+//        } catch (IOException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//      //  t.setTotal_panier(totale);
+//        //paniers.add(t);
+//        return paniers;
+//    }
+    public panier getAllReclamations(int id){
 //          String url = Statics.BASE_URL+"/mobile/listReclamtion/";
           String url =DB.BASE_URL+"/affcart?iduser="+id;
           req.setUrl(url);
@@ -123,7 +188,7 @@ public class ServicePanier {
 
         byte[] responseData = req.getResponseData();
         if (responseData != null) {
-            paniers = parseReclamations(new String(responseData));
+            pan = parseReclamations(new String(responseData));
             req.removeResponseListener(this);
 //            String response = new String(responseData);
 //            System.out.println(response);
@@ -136,13 +201,95 @@ public class ServicePanier {
           NetworkManager.getInstance().addToQueueAndWait(req);
          
          
-         return paniers;
+         return pan;
      }
     
      
-     
-     
-     
+    
+     public float parseqt(String jsonText) {
+         
+         
+          float  quantite = 0;
+         
+        System.out.println("+++++++++++");
+        System.out.println(jsonText);
+        System.out.println("++++++++++++");
+        try {
+            
+            JSONParser j = new JSONParser();
+            Map<String, Object> ReclamationsListJson
+                    = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+
+            java.util.List<Map<String, Object>> list = (java.util.List<Map<String, Object>>) ReclamationsListJson.get("root");
+            for (Map<String, Object> obj : list) {
+                
+               
+              
+               //float iduser=Float.parseFloat(obj.get("iduser").toString());
+                 
+                  quantite=Float.parseFloat(obj.get("quantite").toString());
+              
+                 
+                 
+                 
+               
+                // t.setId_user((int)iduser);
+               // t.setStatus(((int) Float.parseFloat(obj.get("status").toString())));
+               
+                
+                
+            }
+
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+      //  t.setTotal_panier(totale);
+        //paniers.add(t);
+        return quantite;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+       public int getqt(int id,int idprod){
+           
+//          String url = Statics.BASE_URL+"/mobile/listReclamtion/";
+          String url =DB.BASE_URL+"/affqt?iduser="+id+"&idprod="+idprod;
+          req.setUrl(url);
+          req.setPost(false);
+          req.addRequestHeader("accept", "application/json");
+          req.addResponseListener(new ActionListener<NetworkEvent>() {
+    @Override
+    public void actionPerformed(NetworkEvent evt) {
+
+        byte[] responseData = req.getResponseData();
+        if (responseData != null) {
+            quantitee = (int)parseqt(new String(responseData));
+            req.removeResponseListener(this);
+//            String response = new String(responseData);
+//            System.out.println(response);
+        } else {
+            System.out.println("Response data is null");
+        }
+    }
+});
+
+          NetworkManager.getInstance().addToQueueAndWait(req);
+         
+         
+         return quantitee;
+     }
+        
      
      
      

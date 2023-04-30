@@ -18,17 +18,17 @@ public class produit {
     private double prix;
     private String descritpion;
     private int id_user;
-    private byte[] image;
+    private String image;
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
-    public produit(int id_produit, String nom_produit, double prix, String descritpion, int id_user, byte[] image) {
+    public produit(int id_produit, String nom_produit, double prix, String descritpion, int id_user, String image) {
         this.id_produit = id_produit;
         this.nom_produit = nom_produit;
         this.prix = prix;
@@ -37,7 +37,7 @@ public class produit {
         this.image = image;
     }
 
-    public produit(String nom_produit, double prix, String descritpion, int id_user, byte[] image) {
+    public produit(String nom_produit, double prix, String descritpion, int id_user, String image) {
         this.nom_produit = nom_produit;
         this.prix = prix;
         this.descritpion = descritpion;
@@ -58,17 +58,19 @@ public class produit {
         this.id_user = id_user;
     }
 
+   
+
     public produit(int id_produit, String nom_produit, double prix) {
         this.id_produit = id_produit;
         this.nom_produit = nom_produit;
         this.prix = prix;
     }
 
-    public produit(int id_produit, String nom_produit, double prix, String descritpion) {
+    public produit(int id_produit, String nom_produit, double prix, String image) {
         this.id_produit = id_produit;
         this.nom_produit = nom_produit;
         this.prix = prix;
-        this.descritpion = descritpion;
+        this.image = image;
     }
 
     public int getId_produit() {

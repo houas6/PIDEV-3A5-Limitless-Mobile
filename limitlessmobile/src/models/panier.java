@@ -17,6 +17,11 @@ public class panier {
     private int id_user;
      private int id_panier;
 
+    
+ private ArrayList<produit> products;
+    private double total_panier;
+    
+    private int quantite=1;
     public int getId_panier() {
         return id_panier;
     }
@@ -24,9 +29,6 @@ public class panier {
     public void setId_panier(int id_panier) {
         this.id_panier = id_panier;
     }
- private ArrayList<produit> products;
-    private double total_panier;
-    private int quantite=1;
 
     public int getQuantite() {
         return quantite;
