@@ -25,6 +25,7 @@ import com.codename1.ui.RadioButton;
 import com.codename1.ui.Tabs;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
+import static com.codename1.ui.events.ActionEvent.Type.Theme;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
@@ -36,6 +37,23 @@ import java.util.ArrayList;
 import models.panier;
 import models.produit;
 import services.ServicePanier;
+import com.codename1.components.ImageViewer;
+import static com.codename1.ui.CN.*;
+import com.codename1.ui.Display;
+import com.codename1.ui.Form;
+import com.codename1.ui.Dialog;
+import com.codename1.ui.Label;
+import com.codename1.ui.plaf.UIManager;
+import com.codename1.ui.util.Resources;
+import com.codename1.io.Log;
+import com.codename1.ui.Toolbar;
+import java.io.IOException;
+import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.io.NetworkEvent;
+import com.codename1.ui.Button;
+import com.codename1.ui.ComboBox;
+import com.codename1.ui.Slider;
+import com.codename1.ui.layouts.FlowLayout;
 
 /**
  *
@@ -43,6 +61,7 @@ import services.ServicePanier;
  */
 public class afficherpanier extends BaseForm{
       Form current;
+     
 
     public afficherpanier(Resources res) {
         
@@ -107,10 +126,19 @@ public class afficherpanier extends BaseForm{
                    
                    panier panier = ServicePanier.getInstance().getAllReclamations(1);
                    ArrayList<produit> prod=panier.getProducts();
+                   float total=ServicePanier.getInstance().gettotal(1);
                    
+                          
+  Button commande = new Button("commander");
+  commande.addActionListener(new ActionListener() {
+                                            @Override
+            public void actionPerformed(ActionEvent evt) {               
+                               new addcommande(res).show();
+                                                    }   
+                                            });
+                                 
                            
-                           
-                            
+                            add(commande);
                            
 
                  for (produit fi : prod) {
@@ -129,6 +157,9 @@ public class afficherpanier extends BaseForm{
                                 ct.add(l4);
                            Label l2 = new Label("quantite : "+qt);
                            ct.add(l2);
+                           String image=fi.getImage();
+                                    Label l5 = new Label(res.getImage(image));
+                                    ct.add(l5);
                            
 
                             
@@ -179,6 +210,11 @@ public class afficherpanier extends BaseForm{
                        ct.add(separator);
                      add(ct); 
                }
+                 Label tot = new Label("Total" + total);
+tot.getAllStyles().setFgColor(0x00FF00); // set the foreground color to green
+tot.getAllStyles().setAlignment(Component.BOTTOM | Component.RIGHT); // align the label to the bottom right
+add(tot);
+
                   
     }
         
