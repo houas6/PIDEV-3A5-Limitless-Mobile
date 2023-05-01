@@ -65,11 +65,11 @@ public class afficherpanier extends BaseForm{
 
     public afficherpanier(Resources res) {
         
-        super("Reclamations", BoxLayout.y());
+        super("Panier", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
         getTitleArea().setUIID("Container");
-        setTitle("Reclamations");
+        setTitle("Panier");
         getContentPane().setScrollVisible(false);
         
         super.addSideMenu(res);
@@ -124,7 +124,7 @@ public class afficherpanier extends BaseForm{
                   Container co=new Container(BoxLayout.xCenter());
                    // ArrayList <panier> panier = new ArrayList();
                    
-                   panier panier = ServicePanier.getInstance().getAllReclamations(1);
+                   panier panier = ServicePanier.getInstance().getpanier(1);
                    ArrayList<produit> prod=panier.getProducts();
                    float total=ServicePanier.getInstance().gettotal(1);
                    
@@ -170,14 +170,14 @@ public class afficherpanier extends BaseForm{
                             plus.addActionListener(new ActionListener() {
                                             @Override
             public void actionPerformed(ActionEvent evt) {               
-                              ServicePanier.getInstance().increment(panier.getId_panier()); 
+                              ServicePanier.getInstance().increment(panier.getId_user(),fi.getId_produit()); 
                                new afficherpanier(res).show();
                                                     }   
                                             });
                                  minus.addActionListener(new ActionListener() {
                                             @Override
             public void actionPerformed(ActionEvent evt) {               
-                              ServicePanier.getInstance().decrement(panier.getId_panier()); 
+                              ServicePanier.getInstance().decrement(panier.getId_user(),fi.getId_produit()); 
                                new afficherpanier(res).show();
                                                     }   
                                             });
@@ -189,11 +189,11 @@ public class afficherpanier extends BaseForm{
                           Supprimer.addActionListener(new ActionListener() {
                                             @Override
             public void actionPerformed(ActionEvent evt) {               
-                if (Dialog.show("Confirmation", "Voulez vous supprimer cett exercice ?", "Oui", "Annuler")) {
+                if (Dialog.show("Confirmation", "Voulez vous supprimer cet article ?", "Oui", "Annuler")) {
 
-               ServicePanier.getInstance().deletepanier(panier.getId_panier());
+               ServicePanier.getInstance().deletepanier(panier.getId_user(),fi.getId_produit());
             // Success message
-            Dialog.show("Success", "Reclamation deleted successfully", "OK", null);
+            Dialog.show("Success", "Article deleted successfully", "OK", null);
              new afficherpanier(res).show();
 
 

@@ -43,7 +43,7 @@ public class addcommande extends BaseForm {
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
         getTitleArea().setUIID("Container");
-        setTitle("Ajouter Reclamation");
+        setTitle("Ajouter commande");
         getContentPane().setScrollVisible(false);
         
         super.addSideMenu(res);
@@ -110,9 +110,7 @@ public class addcommande extends BaseForm {
                 {
            
 
-//            fi.setEtat(nom.getText());
-                   //  public commande(int id_commande, int id_user, String nom, String prenom, String adresse, float total_commande)
-                    float total=5;
+                    
             
             
 

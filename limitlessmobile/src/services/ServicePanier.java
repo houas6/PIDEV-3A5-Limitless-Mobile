@@ -75,7 +75,7 @@ public class ServicePanier {
      
      
      
-       public panier parseReclamations(String jsonText) {
+       public panier parsepanier(String jsonText) {
          float totale=0;
          panier t = new panier();
          
@@ -212,7 +212,7 @@ public class ServicePanier {
          
          return total;
      }
-    public panier getAllReclamations(int id){
+    public panier getpanier(int id){
 //          String url = Statics.BASE_URL+"/mobile/listReclamtion/";
           String url =DB.BASE_URL+"/affcart?iduser="+id;
           req.setUrl(url);
@@ -224,7 +224,7 @@ public class ServicePanier {
 
         byte[] responseData = req.getResponseData();
         if (responseData != null) {
-            pan = parseReclamations(new String(responseData));
+            pan = parsepanier(new String(responseData));
             req.removeResponseListener(this);
 //            String response = new String(responseData);
 //            System.out.println(response);
@@ -330,10 +330,10 @@ public class ServicePanier {
      
      
      
-     public boolean deletepanier(int id) {
+     public boolean deletepanier(int id,int idprod) {
         System.out.println("********");
         //String url = Statics.BASE_URL + "create?name=" + t.getName() + "&status=" + t.getStatus();
-       String url =DB.BASE_URL+"/deletepanier?id="+id;
+       String url =DB.BASE_URL+"/deletepanier?iduser="+id+"&idprod="+idprod;
         req.setUrl(url);
         req.setPost(false);
         System.out.println(url);
@@ -352,10 +352,10 @@ public class ServicePanier {
      
      
      
-       public boolean increment(int id) {
+       public boolean increment(int id,int idprod) {
         System.out.println("********");
         //String url = Statics.BASE_URL + "create?name=" + t.getName() + "&status=" + t.getStatus();
-       String url =DB.BASE_URL+"/increment?id="+id;
+       String url =DB.BASE_URL+"/increment?iduser="+id+"&idprod="+idprod;
         req.setUrl(url);
         req.setPost(false);
         System.out.println(url);
@@ -377,10 +377,10 @@ public class ServicePanier {
      
      
      
-         public boolean decrement(int id) {
+         public boolean decrement(int id,int idprod) {
         System.out.println("********");
         //String url = Statics.BASE_URL + "create?name=" + t.getName() + "&status=" + t.getStatus();
-       String url =DB.BASE_URL+"/decrement?id="+id;
+       String url =DB.BASE_URL+"/decrement?iduser="+id+"&idprod="+idprod;
         req.setUrl(url);
         req.setPost(false);
         System.out.println(url);
