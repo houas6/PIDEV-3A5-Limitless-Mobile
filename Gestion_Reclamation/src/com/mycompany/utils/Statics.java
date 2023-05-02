@@ -14,5 +14,5 @@ public class Statics {
     public static final String URL_CREATE = "http://127.0.0.1:8000/reclamations/new/";
     
     
-        public static final String URL= "http://127.0.0.1:8000/";  
+        public static final String URL= "http://127.0.0.1:8000";  
 }

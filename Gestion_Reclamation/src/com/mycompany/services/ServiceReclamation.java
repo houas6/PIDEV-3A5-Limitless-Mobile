@@ -53,23 +53,7 @@ public class ServiceReclamation {
 
 
     
-//        public boolean updateReclamations(Reclamation e){     
-//        String url = Statics.URL+"exercice/mobile/updaterating?idexercice="+e.getIdexercice()+"&iduser="+e.getIduser()+"&rating="+e.getReclamation();
-//        
-//        
-//        req.setUrl(url);
-//        //GET =>
-//        req.setPost(false);
-//        req.addResponseListener(new ActionListener<NetworkEvent>() {
-//            @Override
-//            public void actionPerformed(NetworkEvent evt) {
-//                resultOk = req.getResponseCode() == 200; //si le code return 200 
-//                //
-//                req.removeResponseListener(this);
-//            }
-//        });
-//        NetworkManager.getInstance().addToQueueAndWait(req);
-//        return resultOk;
+
 //        
 //        
 //        
@@ -102,9 +86,6 @@ public class ServiceReclamation {
         
     }
     public ArrayList<Reclamation> parseReclamations(String jsonText) {
-        System.out.println("+++++++++++");
-        System.out.println(jsonText);
-        System.out.println("++++++++++++");
         try {
             reclamations = new ArrayList<>();
             JSONParser j = new JSONParser();
@@ -163,8 +144,87 @@ public class ServiceReclamation {
          
          return reclamations;
      }
-    
+    public ArrayList<Reclamation> getAllReclamationsByEtat(String etat){
+//          String url = Statics.BASE_URL+"/mobile/listReclamtion/";
+          String url ="http://127.0.0.1:8000/reclamations/mobile/listReclamtion/etat/"+etat;
+          req.setUrl(url);
+          req.setPost(false);
+          req.addRequestHeader("accept", "application/json");
+          req.addResponseListener(new ActionListener<NetworkEvent>() {
+    @Override
+    public void actionPerformed(NetworkEvent evt) {
+
+        byte[] responseData = req.getResponseData();
+        if (responseData != null) {
+            reclamations = parseReclamations(new String(responseData));
+            req.removeResponseListener(this);
+//            String response = new String(responseData);
+//            System.out.println(response);
+        } else {
+            System.out.println("Response data is null");
+        }
+    }
+});
+           NetworkManager.getInstance().addToQueueAndWait(req);
+         
+         
+         return reclamations;
+     }
+    public boolean deleteReclamation(int id) {
+    String url =  Statics.URL+"/reclamations/mobile/deleteReclamation/" + id + "/";
+    ConnectionRequest request = new ConnectionRequest(url);
+    request.setHttpMethod("DELETE");
+
+    request.addResponseListener(e -> {
+      
+        resultOk = request.getResponseCode() == 200;
+        
+       
+    });
+
+    NetworkManager.getInstance().addToQueue(request);
+            return resultOk;
+
+}
+    public boolean UpdateReclamation(Reclamation e){
+        String description=e.getDescription();
+        String etat=e.getEtat();
+        int id = e.getId();
+        
+        String url = Statics.URL+"/reclamations/mobile/updateReclamation/"+id+"/"+description+"/"+etat+"/";
+        
+        
+        req.setUrl(url);
+        //GET =>
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOk = req.getResponseCode() == 200; //si le code return 200 
+                //
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOk;
+        
+        
+        
+    }
  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 //        public ArrayList<Reclamation> parseallIDReclamations(String jsonText){
 //                try {
 //
