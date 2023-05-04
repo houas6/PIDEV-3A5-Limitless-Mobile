@@ -23,6 +23,10 @@ public class HomeForm extends Form {
     private static final String ADD_BUTTON_TEXT = "Ajouter categorie";
     private static final String LIST_BUTTON_TEXT = "Afficher Les categorie";
     private static final String UPDATE_BUTTON_TEXT = "Modifier categorie";
+    private static final String ADD_BUTTON_TEXT1 = "Ajouter Produit";
+    private static final String LIST_BUTTON_TEXTp = "Afficher Les produits";
+    private static final String UPDATE_BUTTON_TEXTp = "Modifier produit";
+    
     
 
     public HomeForm() {
@@ -36,6 +40,11 @@ public class HomeForm extends Form {
         addButton.setText(ADD_BUTTON_TEXT);
         addButton.addActionListener(e -> new AddcategorieForm(this).show());
         
+        Button addButtonp = new Button("");
+        addButtonp.setIcon(FontImage.createMaterial(ADD_ICON_NAME, UIManager.getInstance().getComponentStyle("Button")));
+        addButtonp.setText(ADD_BUTTON_TEXT1);
+        addButtonp.addActionListener(e -> new AddproduitForm(this).show());
+        
         Button upButton = new Button("");
         upButton.setIcon(FontImage.createMaterial(ADD_ICON_NAME, UIManager.getInstance().getComponentStyle("Button")));
         upButton.setText(UPDATE_BUTTON_TEXT);
@@ -45,7 +54,17 @@ public class HomeForm extends Form {
         listButton.setIcon(FontImage.createMaterial(LIST_ICON_NAME, UIManager.getInstance().getComponentStyle("Button")));
         listButton.setText(LIST_BUTTON_TEXT);
         listButton.addActionListener(e -> new Listcategorie(this).show());
-        addAll(addButton,listButton,upButton);
+        
+        Button listButtonp = new Button("");
+        listButtonp.setIcon(FontImage.createMaterial(LIST_ICON_NAME, UIManager.getInstance().getComponentStyle("Button")));
+        listButtonp.setText(LIST_BUTTON_TEXTp);
+        listButtonp.addActionListener(e -> new Listproduit(this).show());
+        
+        Button upButtonp = new Button("");
+        upButtonp.setIcon(FontImage.createMaterial(ADD_ICON_NAME, UIManager.getInstance().getComponentStyle("Button")));
+        upButtonp.setText(UPDATE_BUTTON_TEXTp);
+        upButtonp.addActionListener(e -> new modifierProduit(this).show());
+        addAll(addButton,listButton,upButton,addButtonp,listButtonp,upButtonp);
         
 
     }
