@@ -90,13 +90,18 @@ public class ServiceLivreur {
                         String nom = obj.get("nom").toString();
                         String mail = obj.get("mail").toString();
                         float telephone = Float.parseFloat(obj.get("telephone").toString());
-                        float id = Float.parseFloat(obj.get("ID_livreur").toString());                 
-                       l.setID_livreur((int)id);
-                       l.setNom(nom);
-                       l.setMail(mail);
-                       l.setTelephone((int)telephone);          
+                       Object idObj = obj.get("ID_livreur");
+                       float id = idObj != null ? Float.parseFloat(idObj.toString()) : 0f;  
+                       
+                        l.setID_livreur(Math.round(id));
+                        l.setNom(nom);
+                        l.setMail(mail);
+                        l.setTelephone(Math.round(telephone));          
                         result.add(l);
                         System.out.println(l.getNom());
+                        System.out.println(l.getMail());
+                        System.out.println(l.getTelephone());
+                        
                     }
                     }
                 }

@@ -35,12 +35,12 @@ public class HomeForm extends Form{
         Button upButton = new Button("");
         upButton.setIcon(FontImage.createMaterial(ADD_ICON_NAME, UIManager.getInstance().getComponentStyle("Button")));
         upButton.setText(UPDATE_BUTTON_TEXT);
-       // upButton.addActionListener(e -> new modifiercategorie(this).show());
+        upButton.addActionListener(e -> new modifierLivreur(this).show());
         
         Button listButton = new Button("");
         listButton.setIcon(FontImage.createMaterial(LIST_ICON_NAME, UIManager.getInstance().getComponentStyle("Button")));
         listButton.setText(LIST_BUTTON_TEXT);
-      //  listButton.addActionListener(e -> new Listcategorie(this).show());
+        listButton.addActionListener(e -> new ListLivreur(this).show());
         addAll(addButton,listButton,upButton);
         
 

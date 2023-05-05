@@ -30,7 +30,7 @@ public class Livreur {
     }
 
     public Livreur() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     public int getID_livreur() {
