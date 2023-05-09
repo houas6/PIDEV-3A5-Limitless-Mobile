@@ -12,6 +12,9 @@ import com.codename1.ui.Label;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.entities.Produit;
+
+import java.util.ArrayList;
 
 /**
  *
@@ -26,8 +29,14 @@ public class HomeForm extends Form {
     private static final String ADD_BUTTON_TEXT1 = "Ajouter Produit";
     private static final String LIST_BUTTON_TEXTp = "Afficher Les produits";
     private static final String UPDATE_BUTTON_TEXTp = "Modifier produit";
-    
-    
+    private Resources theme;private Resources res;
+    ArrayList<Produit> produits;
+    public Resources getTheme() {
+        // return the theme you want to use
+        return UIManager.initFirstTheme("/theme");
+    }
+  
+
 
     public HomeForm() {
 
@@ -56,9 +65,14 @@ public class HomeForm extends Form {
         listButton.addActionListener(e -> new Listcategorie(this).show());
         
         Button listButtonp = new Button("");
-        listButtonp.setIcon(FontImage.createMaterial(LIST_ICON_NAME, UIManager.getInstance().getComponentStyle("Button")));
-        listButtonp.setText(LIST_BUTTON_TEXTp);
-        listButtonp.addActionListener(e -> new Listproduit(this).show());
+    listButtonp.setIcon(FontImage.createMaterial(LIST_ICON_NAME, UIManager.getInstance().getComponentStyle("Button")));
+    listButtonp.setText(LIST_BUTTON_TEXTp);
+    listButtonp.addActionListener(e ->new Listproduit(this).show());
+
+
+
+
+
         
         Button upButtonp = new Button("");
         upButtonp.setIcon(FontImage.createMaterial(ADD_ICON_NAME, UIManager.getInstance().getComponentStyle("Button")));

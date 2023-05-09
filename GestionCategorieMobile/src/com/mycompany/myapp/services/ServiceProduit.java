@@ -11,7 +11,10 @@ import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.util.Resources;
 import com.mycompany.myapp.entities.Produit;
+import com.mycompany.myapp.gui.Listproduit;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +27,8 @@ public class ServiceProduit {
     public static ServiceProduit instance = null;
     public boolean resultOK;
     private ConnectionRequest req;
+    public Produit p;
+     public ArrayList<Produit> prod=new ArrayList<>();
     public ArrayList<Produit> produits=new ArrayList<>();
 
     public ServiceProduit() {
@@ -62,63 +67,91 @@ public class ServiceProduit {
     NetworkManager.getInstance().addToQueueAndWait(req);
     return resultOK;
 }
+public ArrayList<Produit> getproduit() {
+    String url = "http://127.0.0.1:8000/" + "produit/afficheMobp/";
+    req.setUrl(url);
+    req.setPost(false);
 
-public ArrayList<Produit> affichageProduit() {
-    ArrayList<Produit> result = new ArrayList<>();
+    req.addRequestHeader("accept", "application/json");
+   req.addResponseListener(new ActionListener<NetworkEvent>() {
+    @Override
+    public void actionPerformed(NetworkEvent evt) {
 
-    String url ="http://127.0.0.1:8000/"+"produit/afficheMobp";
-     req.setUrl(url);
-       //est une interface de la bibliothèque de classes standard de Java, 
-       //qui définit une méthode appelée actionPerformed() 
-       //qui est invoquée lorsqu'un événement est déclenché.
+        byte[] responseData = req.getResponseData();
+        if (responseData != null) {
+            produits = parseproduit(new String(responseData));
+            req.removeResponseListener(this);
+//            String response = new String(responseData);
+//            System.out.println(response);
+        } else {
+            System.out.println("Response data is null");
+        }
+    }
+});
+
+          NetworkManager.getInstance().addToQueueAndWait(req);
+         
+         
+         return produits;
+}
+
+
+
+public ArrayList<Produit> parseproduit(String jsonText) {
+         
+         Produit p = new Produit();
+         
+        System.out.println("+++++++++++");
+        System.out.println(jsonText);
+        System.out.println("++++++++++++");
+        try {
+           
+            JSONParser j = new JSONParser();
+            Map<String, Object> ReclamationsListJson
+                    = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+
+            java.util.List<Map<String, Object>> list = (java.util.List<Map<String, Object>>) ReclamationsListJson.get("root");
+            for (Map<String, Object> obj : list) {
+
+            float Id_produit = Float.parseFloat(obj.get("id").toString());
+
+
+
+            float id_user = Float.parseFloat(obj.get("idUser").toString());
+            float idcategorie = Float.parseFloat(obj.get("idcategorie").toString());
+           String nom_produit = obj.get("nom_produit").toString();
+            float prix = Float.parseFloat(obj.get("prix").toString());
+            String description = obj.get("description").toString();
+            String image = obj.get("image").toString();
+             p = new Produit((int)Id_produit, (int)id_user, (int)idcategorie, nom_produit, prix, description, image);
+
+            prod.add(p);
+        }
+    } catch (IOException ex) {
+        System.out.println(ex.getMessage());
+    }
+    return prod;
+}
+
+
+
+    
+ /* public ArrayList<Produit> getAllProducts(){
+        String url = "http://127.0.0.1:8000/" + "produit/afficheMobp/";
+    req.setUrl(url);
+    req.setPost(false);
+       
+        
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
-                //parse conversion m json lel map
-                JSONParser jsonp;
-                jsonp = new JSONParser();
-                
-                try 
-                {
-                    //mapM les donnes recue mel json sous forme du map de type object string
-                    //root howa key mteaa json //tochararray yarjaa aa json khatrou yekbel ken char
-                    Map<String,Object>mapM = jsonp.parseJSON(new CharArrayReader(new String(req.getResponseData()).toCharArray()));
-                    List<Map<String,Object>> ListOfMaps = (List<Map<String,Object>>) mapM.get("root");
-                    System.out.println(mapM);
-                 for(Map<String, Object> obj : ListOfMaps)
-                    {
-                        if(obj!=null){
-                        System.out.println(obj);
-                    Produit p = new Produit();
-                    String nom = obj.get("nom_produit").toString();
-                    float prix = Float.parseFloat(obj.get("prix").toString());
-                    String description = obj.get("description").toString();
-                    String image = obj.get("image").toString();
-                    int idcategorie = Integer.parseInt(obj.get("idcategorie").toString());
-                    int idu = Integer.parseInt(obj.get("id_user").toString());
-
-                    p.setNom_produit(nom);
-                    p.setPrix(prix);
-                    p.setDescription(description);
-                    p.setImage(image);
-                    p.setId_user(idu);
-                    p.setIdcategorie(idcategorie);
-                    result.add(p);
-                }}}
-            
-                catch(Exception ex)
-                {
-                    ex.printStackTrace();
-                }
-
+                produits = parseproduit(new String(req.getResponseData()));
+                req.removeResponseListener(this);
             }
         });
-
         NetworkManager.getInstance().addToQueueAndWait(req);
-
-        return result;
-    
-}   
+        return produits;
+    }*/
 
 
      public boolean modifierProduit(Produit p) {

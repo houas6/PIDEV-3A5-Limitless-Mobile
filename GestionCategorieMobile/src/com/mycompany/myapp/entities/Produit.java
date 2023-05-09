@@ -5,6 +5,7 @@
  */
 package com.mycompany.myapp.entities;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -150,6 +151,10 @@ public class Produit {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public void addProduit(Produit p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

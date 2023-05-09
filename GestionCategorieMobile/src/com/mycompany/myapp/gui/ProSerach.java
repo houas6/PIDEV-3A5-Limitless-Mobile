@@ -58,26 +58,19 @@ searchButton.setIcon(searchIcon);
                 
                       
                        
-        Button refreshButton = new Button();
+       /* Button refreshButton = new Button();
 FontImage icon1 = FontImage.createMaterial(FontImage.MATERIAL_REFRESH, UIManager.getInstance().getComponentStyle("Button"));
 refreshButton.setIcon(icon1);
 
        
-       refreshButton.addActionListener(e-> new Listproduit(previous).show());
-        add(refreshButton);
+       refreshButton.addActionListener(e-> new Listproduit(res).show());
+        add(refreshButton);*/
 
-                        List<Produit> listep = sp.affichageProduit();
+                       
                        
                             
                             
-                   for (Produit c : listep) {
-    MultiButton m = new MultiButton();
-    
-    m.setTextLine1("Nom: " + c.getNom_produit());
-   
-    
-    add(m);
-                   }
+                  
                    
 revalidate() ;   
                     });
