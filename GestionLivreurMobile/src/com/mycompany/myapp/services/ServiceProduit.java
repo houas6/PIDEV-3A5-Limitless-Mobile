@@ -64,7 +64,7 @@ public ArrayList<Produit> affichageProduit() {
                         if(obj!=null){
                        // System.out.println(obj);
                     Produit p = new Produit();
-                    Object idObj = obj.get("id_produit");
+                    Object idObj = obj.get("id");
                     float id = idObj != null ? Float.parseFloat(idObj.toString()) : 0;  
                     float prix = Float.parseFloat(obj.get("prix").toString());
                     p.setId_produit(Math.round(id));
@@ -87,7 +87,6 @@ public ArrayList<Produit> affichageProduit() {
 }   
 
 
-    
 }
 
 
