@@ -16,7 +16,6 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-
 package com.mycompany.gui;
 
 import com.codename1.capture.Capture;
@@ -58,7 +57,9 @@ import com.codename1.ui.util.Resources;
 import com.codename1.util.Base64;
 import com.mycompany.gui.BaseForm;
 import com.mycompany.entities.Reclamation;
+import com.mycompany.entities.Reponse;
 import com.mycompany.services.ServiceReclamation;
+import com.mycompany.services.ServiceReponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -74,23 +75,21 @@ import java.util.Random;
  */
 public class ModifierReclamation extends BaseForm {
 
-
-
-    public ModifierReclamation(Resources res,Form previous,Reclamation fi) {
+    public ModifierReclamation(Resources res, Form previous, Reclamation fi) {
         super("Modifier Reclamation", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
         getTitleArea().setUIID("Container");
         setTitle("Modifier Reclamation");
         getContentPane().setScrollVisible(false);
-        
+
         super.addSideMenu(res);
-        
-        tb.addSearchCommand(e -> {});
-        
-        
+
+        tb.addSearchCommand(e -> {
+        });
+
         Image img = res.getImage("profile-background.jpg");
-        if(img.getHeight() > Display.getInstance().getDisplayHeight() / 3) {
+        if (img.getHeight() > Display.getInstance().getDisplayHeight() / 3) {
             img = img.scaledHeight(Display.getInstance().getDisplayHeight() / 3);
         }
         ScaleImageLabel sl = new ScaleImageLabel(img);
@@ -101,67 +100,57 @@ public class ModifierReclamation extends BaseForm {
         Label twitter = new Label("486 followers", res.getImage("twitter-logo.png"), "BottomPad");
         facebook.setTextPosition(BOTTOM);
         twitter.setTextPosition(BOTTOM);
-        
-                add(LayeredLayout.encloseIn(
+
+        add(LayeredLayout.encloseIn(
                 sl,
                 BorderLayout.south(
-                    GridLayout.encloseIn(2, 
-                            facebook, twitter
-                    )
+                        GridLayout.encloseIn(2,
+                                facebook, twitter
+                        )
                 )
         ));
-  
-                      
+
 //        TextComponent nom= new TextComponent().label("Nom Exercice:");
 //        nom.text(fi.getNom());
 //        add(nom);
-                              
-        
-        TextComponent description= new TextComponent().label("Description :");
+        TextComponent description = new TextComponent().label("Description :");
         description.text(fi.getDescription());
         add(description);
-        
-        
-        
-        TextComponent etat= new TextComponent().label("Etat :");
+
+        TextComponent etat = new TextComponent().label("Etat :");
         etat.text(fi.getEtat());
         add(etat);
-        
 
-         
+        TextComponent rep = new TextComponent().label("Reponse :");
+        add(rep);
+
         Button Ajouter = new Button("Modifier");
-        
-
-                      
 
         Ajouter.addActionListener((evt) -> {
-                  if (description.getText().equals("")||(etat.getText().equals("")))
-                    Dialog.show("Alert", "Please fill all the fields", new Command("OK"));
-                else
-                {
-           
+            if (description.getText().equals("") || (etat.getText().equals(""))||(rep.getText().equals(""))) {
+                Dialog.show("Alert", "Please fill all the fields", new Command("OK"));
+            } else {
 
+                fi.setDescription(description.getText());
+                fi.setEtat(etat.getText());
+                Reponse re = new Reponse();
+                re.setIdReclamation(fi.getId());
+                re.setContenuRep(rep.getText());
+                ServiceReponse.getinstance().addReponses(re);
+                Dialog.show("Success", "Reclamation Modifié avec success", new Command("OK"));
+                new AllReclamation(res).show();
 
-            fi.setDescription(description.getText());
-            fi.setEtat(etat.getText());
-
-ServiceReclamation.getinstance().UpdateReclamation(fi);
-                Dialog.show("Success","Exercice Modifier avec success",new Command("OK"));
-                            new AllReclamation(res).show();
-                
-            }      
+            }
         });
 
         addStringValue("", FlowLayout.encloseRightMiddle(Ajouter));
-        
+
     }
-    
+
     private void addStringValue(String s, Component v) {
         add(BorderLayout.west(new Label(s, "PaddedLabel")).
                 add(BorderLayout.CENTER, v));
         add(createLineSeparator(0xeeeeee));
     }
 
-
 }
-

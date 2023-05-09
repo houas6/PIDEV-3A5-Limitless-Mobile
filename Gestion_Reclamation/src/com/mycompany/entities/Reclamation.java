@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 public class Reclamation {
      private int id ;
-//     private int id_client;
+//     private int id_client;alalalal
     private String description,etat;
 
     public Reclamation(int id, int id_client, String description, String etat) {

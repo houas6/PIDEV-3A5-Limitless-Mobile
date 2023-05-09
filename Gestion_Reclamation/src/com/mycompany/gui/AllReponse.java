@@ -35,85 +35,86 @@ import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import com.mycompany.entities.Reclamation;
+import com.mycompany.entities.Reponse;
 import com.mycompany.services.ServiceReclamation;
+import com.mycompany.services.ServiceReponse;
 import java.util.ArrayList;
 
 /**
  *
  * @author achra
  */
-public class AllReclamation extends BaseForm {
+public class AllReponse extends BaseForm{
+     Form current;
 
-    Form current;
+    public AllReponse(Resources res) {
 
-    public AllReclamation(Resources res) {
-
-        super("Reclamations", BoxLayout.y());
+        super("Reponses", BoxLayout.y());
         Boolean searchEtat=false;
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
         getTitleArea().setUIID("Container");
-        setTitle("Reclamations");
+        setTitle("Reponses");
         getContentPane().setScrollVisible(false);
 
         super.addSideMenu(res);
 //        tb.addSearchCommand(e -> {
 //        });
         // Define the search field
-        TextField searchField = new TextField("", "Search...");
+//        TextField searchField = new TextField("", "Search...");
         // Define the search command
-        Command searchCommand = new Command("Search") {
-    @Override
-    public void actionPerformed(ActionEvent evt) {
-        String query = searchField.getText();
-        ArrayList<Reclamation> searchResults = ServiceReclamation.getinstance().getAllReclamationsByEtat(query);
-        removeAll(); // Remove all previous components
-        for (Reclamation fi : searchResults) {
-            Container ct = new Container(BoxLayout.y());
-            Label l = new Label("ID : " + fi.getId());
-            Label l2 = new Label("Nom de Reclamation: " + fi.getEtat(), "RedLabel");
-            Label l3 = new Label("Description : " + fi.getDescription(), "SmallLabel");
-            l2.getAllStyles().setFgColor(0xFF0000);
-            ct.add(l);
-            ct.add(l2);
-            ct.add(l3);
+//        Command searchCommand = new Command("Search") {
+//    @Override
+//    public void actionPerformed(ActionEvent evt) {
+//        String query = searchField.getText();
+//        ArrayList<Reclamation> searchResults = ServiceReclamation.getinstance().getAllReclamationsByEtat(query);
+//        removeAll(); // Remove all previous components
+//        for (Reclamation fi : searchResults) {
+//            Container ct = new Container(BoxLayout.y());
+//            Label l = new Label("ID : " + fi.getId());
+//            Label l2 = new Label("Nom de Reclamation: " + fi.getEtat(), "RedLabel");
+//            Label l3 = new Label("Description : " + fi.getDescription(), "SmallLabel");
+//            l2.getAllStyles().setFgColor(0xFF0000);
+//            ct.add(l);
+//            ct.add(l2);
+//            ct.add(l3);
+//
+//            Button Modif = new Button("Modifier");
+//            Button Supprimer = new Button("Supprimer");
+//            Modif.addActionListener(new ActionListener() {
+//                @Override
+//                public void actionPerformed(ActionEvent evt) {
+//                    new ModifierReclamation(res, current, fi).show();
+//                }
+//            });
+//            Supprimer.addActionListener(new ActionListener() {
+//                @Override
+//                public void actionPerformed(ActionEvent evt) {
+//                    if (Dialog.show("Confirmation", "Voulez vous supprimer cett exercice ?", "Oui", "Annuler")) {
+//
+//                        ServiceReclamation.getinstance().deleteReclamation(fi.getId());
+//                        // Success message
+//                        Dialog.show("Success", "Reclamation deleted successfully", "OK", null);
+//                        new AllReclamation(res).show();
+//
+//                    }
+//
+//                }
+//            });
+//            ct.add(Modif);
+//            ct.add(Supprimer);
+//
+//            Label separator = new Label("", "Separator");
+//            ct.add(separator);
+//            add(ct);
+//        }
+//        revalidate(); // Refresh the UI
+//    }
+//        };
 
-            Button Modif = new Button("Modifier");
-            Button Supprimer = new Button("Supprimer");
-            Modif.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent evt) {
-                    new ModifierReclamation(res, current, fi).show();
-                }
-            });
-            Supprimer.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent evt) {
-                    if (Dialog.show("Confirmation", "Voulez vous supprimer cett exercice ?", "Oui", "Annuler")) {
-
-                        ServiceReclamation.getinstance().deleteReclamation(fi.getId());
-                        // Success message
-                        Dialog.show("Success", "Reclamation deleted successfully", "OK", null);
-                        new AllReclamation(res).show();
-
-                    }
-
-                }
-            });
-            ct.add(Modif);
-            ct.add(Supprimer);
-
-            Label separator = new Label("", "Separator");
-            ct.add(separator);
-            add(ct);
-        }
-        revalidate(); // Refresh the UI
-    }
-        };
-
-        tb.addComponentToSideMenu(searchField);
-        tb.addCommandToSideMenu(searchCommand);
-        tb.addSearchCommand(searchCommand);
+//        tb.addComponentToSideMenu(searchField);
+//        tb.addCommandToSideMenu(searchCommand);
+//        tb.addSearchCommand(searchCommand);
         Tabs swipe = new Tabs();
 
         Label spacer1 = new Label();
@@ -157,56 +158,53 @@ public class AllReclamation extends BaseForm {
         Component.setSameSize(radioContainer, spacer1);
         add(LayeredLayout.encloseIn(swipe, radioContainer));
 
-        Button Ajouter = new Button("Ajouter");
-        Ajouter.getUnselectedStyle().setBgColor(0xFF0000); // Bleu foncé
-        Ajouter.getSelectedStyle().setBgColor(0xFF0000); // Bleu foncé (lorsque le bouton est sélectionné)
-        Ajouter.getPressedStyle().setBgColor(0xFF0000); // Bleu foncé (lorsque le bouton est enfoncé)
-        Ajouter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                new AddReclamation(res, current).show();
-            }
-        });
-        add(Ajouter);
+//        Button Ajouter = new Button("Ajouter");
+//        Ajouter.getUnselectedStyle().setBgColor(0xFF0000); // Bleu foncé
+//        Ajouter.getSelectedStyle().setBgColor(0xFF0000); // Bleu foncé (lorsque le bouton est sélectionné)
+//        Ajouter.getPressedStyle().setBgColor(0xFF0000); // Bleu foncé (lorsque le bouton est enfoncé)
+//        Ajouter.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent evt) {
+//                new AddReclamation(res, current).show();
+//            }
+//        });
+//        add(Ajouter);
 
         ButtonGroup barGroup = new ButtonGroup();
         Container co = new Container(BoxLayout.xCenter());;
-        ArrayList<Reclamation> reclamation = new ArrayList();
-        reclamation = ServiceReclamation.getinstance().getAllReclamations();
+        ArrayList<Reponse> reponse = new ArrayList();
+        reponse = ServiceReponse.getinstance().getAllReponses();
 
-        for (Reclamation fi : reclamation) {
+        for (Reponse fi : reponse) {
             Container ct = new Container(BoxLayout.y());
-            Label l = new Label("ID : " + fi.getId());
-            Label l2 = new Label("Nom de Reclamation: " + fi.getEtat(), "RedLabel");
-            Label l3 = new Label("Description : " + fi.getDescription(), "SmallLabel");
+            Label l = new Label("ID : " + fi.getIdRep());
+            Label l2 = new Label("Reponse : " + fi.getContenuRep(), "RedLabel");
             l2.getAllStyles().setFgColor(0xFF0000);
             ct.add(l);
             ct.add(l2);
-            ct.add(l3);
 
-            Button Modif = new Button("Modifier");
+//            Button Modif = new Button("Modifier");
             Button Supprimer = new Button("Supprimer");
-            Modif.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent evt) {
-                    new ModifierReclamation(res, current, fi).show();
-                }
-            });
+//            Modif.addActionListener(new ActionListener() {
+//                @Override
+//                public void actionPerformed(ActionEvent evt) {
+//                    new ModifierReclamation(res, current, fi).show();
+//                }
+//            });
             Supprimer.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
-                    if (Dialog.show("Confirmation", "Voulez vous supprimer cett exercice ?", "Oui", "Annuler")) {
+                    if (Dialog.show("Confirmation", "Voulez vous supprimer cett reponse ?", "Oui", "Annuler")) {
 
-                        ServiceReclamation.getinstance().deleteReclamation(fi.getId());
+                        ServiceReponse.getinstance().deleteReponse(fi.getIdRep());
                         // Success message
-                        Dialog.show("Success", "Reclamation deleted successfully", "OK", null);
+                        Dialog.show("Success", "Reponse deleted successfully", "OK", null);
                         new AllReclamation(res).show();
 
                     }
 
                 }
             });
-            ct.add(Modif);
             ct.add(Supprimer);
 
             Label separator = new Label("", "Separator");
@@ -251,5 +249,4 @@ public class AllReclamation extends BaseForm {
 
         swipe.addTab("", page1);
     }
-
 }

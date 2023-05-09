@@ -70,7 +70,8 @@ public class BaseForm extends Form {
    
         
      
-  tb.addMaterialCommandToSideMenu("Gestion des Exercices", FontImage.MATERIAL_EVENT, e ->    new AllReclamation(res).show());    
+  tb.addMaterialCommandToSideMenu("Gestion des Reclamations", FontImage.MATERIAL_EVENT, e ->    new AllReclamation(res).show());    
+  tb.addMaterialCommandToSideMenu("Reponses", FontImage.MATERIAL_EVENT, e ->    new AllReponse(res).show());    
 
 
 //     tb.addMaterialCommandToSideMenu("Les Exercices", FontImage.MATERIAL_EVENT, e ->    new ReclamationList(res).show());    

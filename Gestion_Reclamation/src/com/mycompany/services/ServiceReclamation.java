@@ -13,7 +13,8 @@ import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
 import com.mycompany.entities.Reclamation;
 import com.mycompany.utils.Statics;
-
+import com.twilio.Twilio;
+import com.twilio.type.PhoneNumber;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -59,14 +60,30 @@ public class ServiceReclamation {
 //        
 //    }
     
-    
+     private static final String ACCOUNT_SID = "AC0103800e0a30303037bd18bdc1111caa";
+  private static final String AUTH_TOKEN = "9224ef57494f5118ce1087746493e16b";
+  private static final String TWILIO_PHONE_NUMBER = "+12765979278";
+
+  // Define the method to send the SMS message
+  public void sendSms(String toPhoneNumber, String messageText) {
+    // Initialize the Twilio API client
+    Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+    // Set the phone numbers for the SMS message
+    PhoneNumber to = new PhoneNumber(toPhoneNumber);
+    PhoneNumber from = new PhoneNumber(TWILIO_PHONE_NUMBER);
+
+    // Use the Message creator to send the SMS message
+    com.twilio.rest.api.v2010.account.Message message = com.twilio.rest.api.v2010.account.Message.creator(to, from, messageText).create();
+  }
     
     //methode d'ajout
     public boolean addReclamations(Reclamation e){     
         String description=e.getDescription();
         String etat=e.getEtat(); 
+        String id_user="1";
 //        String url = Statics.URL+"reclamations/createReclamations/"+e.getEtat()+"/"+e.getDescription();
-        String url = "http://127.0.0.1:8000/reclamations/createReclamations/" +etat+"/"+description+"/" ;
+        String url = "http://127.0.0.1:8000/reclamations/createReclamations/" +etat+"/"+description+"/"+id_user+"/";
         
         req.setUrl(url);
         //GET =>

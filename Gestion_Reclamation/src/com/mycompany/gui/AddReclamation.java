@@ -114,7 +114,9 @@ public class AddReclamation extends BaseForm {
                Dialog.show("Ereur","Ereur",new Command("OK"));
                     }else {
                 Dialog.show("Success","Reclamation Ajouter avec success",new Command("OK"));
+                ServiceReclamation.getinstance().sendSms("+21621234200", "Votre Reclamation est envoyé , vous recevrez une reponse en mail.");
                             new AllReclamation(res).show();
+                            
 
                     }
                 
