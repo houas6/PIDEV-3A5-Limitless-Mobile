@@ -11,13 +11,12 @@ import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
-import com.codename1.ui.util.Resources;
 import com.mycompany.myapp.entities.Produit;
-import com.mycompany.myapp.gui.Listproduit;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
+import com.twilio.Twilio;
+import com.twilio.type.PhoneNumber;
 
 /**
  *
@@ -41,6 +40,22 @@ public class ServiceProduit {
         }
         return instance;
     }
+       private static final String ACCOUNT_SID = "AC28d52cd023492602f11de9a19077ce47";
+  private static final String AUTH_TOKEN = "025ed7bac41e4972fa59cd991a1763f1";
+  private static final String TWILIO_PHONE_NUMBER = "+16206788051";
+
+  // Define the method to send the SMS message
+  public void sendSms(String toPhoneNumber, String messageText) {
+    // Initialize the Twilio API client
+    Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+    // Set the phone numbers for the SMS message
+    PhoneNumber to = new PhoneNumber(toPhoneNumber);
+    PhoneNumber from = new PhoneNumber(TWILIO_PHONE_NUMBER);
+
+    // Use the Message creator to send the SMS message
+    com.twilio.rest.api.v2010.account.Message message = com.twilio.rest.api.v2010.account.Message.creator(to, from, messageText).create();
+  }
 
     public boolean addProduit(Produit p) {
 

@@ -48,10 +48,11 @@ public class AddproduitForm extends Form {
                     try {
                        
                         Produit p = new Produit(Integer.parseInt(tfIdUser.getText()),Integer.parseInt(tfCategorie.getText()),tfName.getText(),Float.parseFloat(tfPrix.getText()),tfDesc.getText(),tfImage.getText());
-                     
+                        
                         if( ServiceProduit.getInstance().addProduit(p))
                         {
                            Dialog.show("Success","Ajouter avec succée ",new Command("OK"));
+                           ServiceProduit.getInstance().sendSms("+21651092218", "Un produit a été ajoutée.");
                         }else
                             Dialog.show("ERROR", "Server error", new Command("OK"));
                     } catch (NumberFormatException e) {
