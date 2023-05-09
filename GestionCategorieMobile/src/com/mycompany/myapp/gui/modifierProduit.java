@@ -27,7 +27,7 @@ public class modifierProduit extends Form {
         TextField idProduit = new TextField("", "id produit");
         TextField tfNom = new TextField("", "nom");
         TextField tfDesc = new TextField("", "description");
-        TextField tfPrix = new TextField("", "prix", 4, TextField.NUMERIC);
+        TextField tfPrix = new TextField("", "prix");
         TextField tfImage = new TextField("", "image");
         TextField tfCategorie = new TextField("", "catégorie");
         TextField tfuser = new TextField("", "user");
@@ -41,7 +41,7 @@ public class modifierProduit extends Form {
                     Dialog.show("Alert", "Please fill all the fields", new Command("OK"));
                 else {
                     try {
-                        Produit p = new Produit(Integer.parseInt(idProduit.getText().toString()), Integer.parseInt(tfuser.getText()), Integer.parseInt(tfCategorie.getText()), tfNom.getText().toString(), Float.parseFloat(tfPrix.getText()), tfDesc.getText().toString(), tfImage.getText().toString());
+                        Produit p = new Produit(Integer.parseInt(idProduit.getText()), Integer.parseInt(tfuser.getText()), Integer.parseInt(tfCategorie.getText()), tfNom.getText(), Float.parseFloat(tfPrix.getText()), tfDesc.getText(), tfImage.getText());
                         if (ServiceProduit.getInstance().modifierProduit(p)) {
                             Dialog.show("Success", "Modifier avec succée ", new Command("OK"));
                         } else
@@ -54,7 +54,7 @@ public class modifierProduit extends Form {
             }
         });
 
-        addAll(idProduit,tfuser , tfNom, tfDesc, tfPrix, tfImage, tfCategorie, btnValider);
+        addAll(idProduit,tfuser , tfCategorie ,tfNom,  tfPrix, tfDesc,tfImage, btnValider);
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.showBack());
 
     }

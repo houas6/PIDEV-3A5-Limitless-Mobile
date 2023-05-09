@@ -26,26 +26,29 @@ public class AddproduitForm extends Form {
      public AddproduitForm(Form previous) {
         setTitle("Add a new Product");
         setLayout(BoxLayout.y());
-        
-        TextField tfName = new TextField("","Nom ");
-        TextField tfDesc = new TextField("","Description");
-        TextField tfPrix = new TextField("","Prix",4,TextField.NUMERIC);
-        TextField tfImage = new TextField("","Image");
-        TextField tfCategorie = new TextField("","Catégorie");
         TextField tfIdUser = new TextField("", "Id User", 4, TextField.NUMERIC);
+        TextField tfCategorie = new TextField("","idcategorie");
+        TextField tfName = new TextField("","Nom ");
+        TextField tfPrix = new TextField("","Prix",4,TextField.NUMERIC);
+        TextField tfDesc = new TextField("","Description");
+        
+        TextField tfImage = new TextField("","Image");
+        
+        
         
         Button btnValider = new Button("Add ");
         
         btnValider.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                if ((tfName.getText().length()==0) || (tfDesc.getText().length()==0) || (tfPrix.getText().length()==0) || (tfCategorie.getText().length()==0))
+                if ((tfName.getText().length()==0) || (tfDesc.getText().length()==0) || (tfPrix.getText().length()==0) || (tfCategorie.getText().length()==0)|| (tfIdUser.getText().length()==0))
                     Dialog.show("Alert", "Please fill all the fields", new Command("OK"));
                 else
                 {
                     try {
                        
-                        Produit p = new Produit(Integer.parseInt(tfIdUser.getText()),Integer.parseInt(tfCategorie.getText()),tfName.getText().toString(),Float.parseFloat(tfPrix.getText()),tfDesc.getText().toString(),tfImage.getText().toString());
+                        Produit p = new Produit(Integer.parseInt(tfIdUser.getText()),Integer.parseInt(tfCategorie.getText()),tfName.getText(),Float.parseFloat(tfPrix.getText()),tfDesc.getText(),tfImage.getText());
+                     
                         if( ServiceProduit.getInstance().addProduit(p))
                         {
                            Dialog.show("Success","Ajouter avec succée ",new Command("OK"));
@@ -61,7 +64,7 @@ public class AddproduitForm extends Form {
             }
         });
         
-        addAll(tfName,tfDesc,tfPrix,tfImage,tfCategorie, tfIdUser, btnValider);
+        addAll(tfIdUser,tfCategorie,tfName,tfPrix,tfDesc,tfImage, btnValider);
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e-> previous.showBack());
                 
     }

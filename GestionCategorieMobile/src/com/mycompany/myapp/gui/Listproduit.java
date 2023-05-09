@@ -67,7 +67,7 @@ searchButton.setIcon(searchIcon);
         hi.getToolbar().setTitleComponent(searchField);
        // FontImage searchIcon = FontImage.createMaterial(FontImage.MATERIAL_SEARCH, s);
         ArrayList<Produit> listP;
-        listP = ServiceProduit .getInstance().affichageProduit ();
+        listP = ServiceProduit .getInstance().affichageProduit();
         //hi.add(gui_Button_12);
         searchField.addDataChangeListener((i1, i2) -> { // <2>
             String t = searchField.getText();
@@ -131,7 +131,7 @@ FontImage icon1 = FontImage.createMaterial(FontImage.MATERIAL_REFRESH, UIManager
 refreshButton.setIcon(icon1);
 
        
-       refreshButton.addActionListener(e-> new Listcategorie(previous).show());
+       refreshButton.addActionListener(e-> new Listproduit(previous).show());
         add(refreshButton);
 
                         List<Produit > listp = sp.affichageProduit ();
@@ -140,7 +140,7 @@ refreshButton.setIcon(icon1);
                             
                             MultiButton m = new MultiButton();
                             
-                            m.setTextLine1("Nomcategorie:"+p.getNom_produit ());
+                            m.setTextLine1("Nom:"+p.getNom_produit ());
                             
                             
                             add(m);
@@ -148,7 +148,7 @@ refreshButton.setIcon(icon1);
         FontImage.setMaterialIcon(btnModifier, FontImage.MATERIAL_EDIT);
         m.addComponent(BorderLayout.SOUTH, btnModifier);
         btnModifier.addActionListener(e -> {
-            new modifiercategorie(this).show();
+            new modifierProduit(this).show();
         });
 
         Button btnSupprimer = new Button();
