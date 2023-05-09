@@ -12,5 +12,5 @@ package com.mycomany.utils;
 public class Statics {
     
     
-    public static final String BASE_URL="http://127.0.0.1:8000/register/mobile";//hathi url mt3 symfony 
+    public static final String BASE_URL="http://127.0.0.1:8000/mobile";//hathi url mt3 symfony 
 }

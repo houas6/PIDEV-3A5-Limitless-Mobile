@@ -88,7 +88,7 @@ public class ServiceUser {
        public void signin(TextField mail,TextField password, Resources rs ) {
         
         
-        String url = Statics.BASE_URL+"/log?mail="+mail.getText().toString()+"&password="+password.getText().toString();
+        String url = Statics.BASE_URL+"/signin?mail="+mail.getText().toString()+"&password="+password.getText().toString();
         req = new ConnectionRequest(url, false); //false ya3ni url mazlt matba3thtich lel server
         req.setUrl(url);
         
