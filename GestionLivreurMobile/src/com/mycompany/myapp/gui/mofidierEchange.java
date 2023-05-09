@@ -20,7 +20,7 @@ import com.mycompany.myapp.services.ServiceEchanges;
  * @author amine
  */
 public class mofidierEchange extends Form{
-    public mofidierEchange(Form previous) {
+   public mofidierEchange(Form previous, Echanges echange) {
         setTitle("Modifier Echange");
         setLayout(BoxLayout.y());
         
@@ -31,7 +31,14 @@ public class mofidierEchange extends Form{
         TextField tfcm = new TextField("","commentaire ");
         Button btnValider = new Button("Modifier ");
           
-         
+        ide.setText(String.valueOf(echange.getId_echange()));
+        tfpe.setText(String.valueOf(echange.getProduit_echange()));
+        tfpo.setText(String.valueOf(echange.getProduit_offert()));
+        tfst.setText(String.valueOf(echange.getStatut()));
+        tfcm.setText(String.valueOf(echange.getCommentaire()));
+        
+        tfst.setEditable(false);
+        ide.setEditable(false);
         btnValider.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {

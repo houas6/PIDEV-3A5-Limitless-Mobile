@@ -139,7 +139,7 @@ FontImage icon1 = FontImage.createMaterial(FontImage.MATERIAL_REFRESH, UIManager
 refreshButton.setIcon(icon1);
 
        
-       refreshButton.addActionListener(e-> new ListLivreur(previous).show());
+       refreshButton.addActionListener(e-> new ListEchanges(previous).show());
         add(refreshButton);
 
                         List<Echanges> listeech = sp.affichageEchanges();
@@ -154,10 +154,10 @@ refreshButton.setIcon(icon1);
         FontImage.setMaterialIcon(btnModifier, FontImage.MATERIAL_EDIT);
         m.addComponent(BorderLayout.SOUTH, btnModifier);
         btnModifier.addActionListener(e -> {
-        new mofidierEchange(this).show();
+        new mofidierEchange(this,ech).show();
         });
 
-        Button btnSupprimer = new Button();
+      /*  Button btnSupprimer = new Button();
         Image icon = FontImage.createMaterial(FontImage.MATERIAL_DELETE, "ButtonIcon", 5);
         btnSupprimer.setIcon(icon);
         m.addComponent(BorderLayout.WEST, btnSupprimer);
@@ -171,7 +171,7 @@ refreshButton.setIcon(icon1);
             // Élément supprimé avec succès
         }
     }
-});
+});*/
                         }            
                              revalidate() ;   
                       });

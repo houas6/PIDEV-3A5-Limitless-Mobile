@@ -32,10 +32,10 @@ public class addEchangeFormcombo extends Form{
     // Créer les champs de texte et la liste déroulante
     ComboBox<String> cbProduitEchange = new ComboBox<>();
     ComboBox<String> cbProduitOffert = new ComboBox<>();
-    TextField tfSt = new TextField("", "Statut");
+    TextField tfSt = new TextField("En cours", "Statut");
     TextField tfCm = new TextField("", "Commentaire");
     Button btnValider = new Button("Ajouter");
-
+    tfSt.setEditable(false);
     // Récupérer les produits disponibles à partir de la base de données
     ArrayList<Produit> produits = ServiceProduit.getInstance().affichageProduit();
     for (Produit p : produits) {

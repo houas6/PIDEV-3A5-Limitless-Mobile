@@ -34,16 +34,16 @@ public class HomeEchangesForm extends Form{
         addButton.setText(ADD_BUTTON_TEXT);
         addButton.addActionListener(e -> new addEchangeFormcombo(this).show());
         
-        Button upButton = new Button("");
+        /*Button upButton = new Button("");
         upButton.setIcon(FontImage.createMaterial(ADD_ICON_NAME, UIManager.getInstance().getComponentStyle("Button")));
         upButton.setText(UPDATE_BUTTON_TEXT);
-        upButton.addActionListener(e -> new mofidierEchange(this).show());
-        
+        //upButton.addActionListener(e -> new mofidierEchange(this).show());
+        */
         Button listButton = new Button("");
         listButton.setIcon(FontImage.createMaterial(LIST_ICON_NAME, UIManager.getInstance().getComponentStyle("Button")));
         listButton.setText(LIST_BUTTON_TEXT);
         listButton.addActionListener(e -> new ListEchanges(this).show());
-        addAll(addButton,listButton,upButton);
+        addAll(addButton,listButton);
         
 
     }

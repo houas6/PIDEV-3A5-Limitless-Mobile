@@ -58,11 +58,11 @@ public ArrayList<Produit> affichageProduit() {
                     //root howa key mteaa json //tochararray yarjaa aa json khatrou yekbel ken char
                     Map<String,Object>mapM = jsonp.parseJSON(new CharArrayReader(new String(req.getResponseData()).toCharArray()));
                     List<Map<String,Object>> ListOfMaps = (List<Map<String,Object>>) mapM.get("root");
-                    System.out.println(mapM);
+                    //System.out.println(mapM);
                  for(Map<String, Object> obj : ListOfMaps)
                     {
                         if(obj!=null){
-                        System.out.println(obj);
+                       // System.out.println(obj);
                     Produit p = new Produit();
                     Object idObj = obj.get("id_produit");
                     float id = idObj != null ? Float.parseFloat(idObj.toString()) : 0;  
