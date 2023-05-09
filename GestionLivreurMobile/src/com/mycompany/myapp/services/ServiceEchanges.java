@@ -11,6 +11,7 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
 import com.mycompany.myapp.entities.Echanges;
+import com.mycompany.myapp.entities.Produit;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -90,15 +91,23 @@ public class ServiceEchanges {
                         String st = obj.get("statut").toString();
                         String cm = obj.get("commentaire").toString();
                         Object idObj = obj.get("idEchange");
-                        float id = idObj != null ? Float.parseFloat(idObj.toString()) : 0;  
-                        
+                        float id = idObj != null ? Float.parseFloat(idObj.toString()) : 0;
+                        Object peobj = obj.get("produitEchange");
+                        float pe = peobj != null ? Float.parseFloat(peobj.toString()) : 0f; 
+                        Object poobj = obj.get("produitOffert");
+                        float po = poobj != null ? Float.parseFloat(poobj.toString()) : 0f; 
+                           
                         e.setId_echange(Math.round(id));
+                        e.setProduit_echange(Math.round(pe));
+                        e.setProduit_offert(Math.round(po));
                         e.setStatut(st);
                         e.setCommentaire(cm);         
                         result.add(e);
-                        System.out.println("id_echange: " + e.getId_echange());
+                      /*  System.out.println("id_echange: " + e.getId_echange());
+                        System.out.println("Produit_echange: " + e.getProduit_echange());
+                        System.out.println("PProduit_offert " + e.getProduit_offert());
                         System.out.println("statut: " + e.getStatut());
-                        System.out.println("commentaire: " + e.getCommentaire());
+                        System.out.println("commentaire: " + e.getCommentaire());*/
 
                     }
                 }
