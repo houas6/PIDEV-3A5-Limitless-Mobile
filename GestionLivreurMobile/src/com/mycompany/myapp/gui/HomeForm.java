@@ -21,6 +21,7 @@ public class HomeForm extends Form{
     private static final String ADD_BUTTON_TEXT = "Ajouter Livreur";
     private static final String LIST_BUTTON_TEXT = "Afficher Les Livreur";
     private static final String UPDATE_BUTTON_TEXT = "Modifier Livreur";
+    
      public HomeForm() {
 
         setTitle("Home");

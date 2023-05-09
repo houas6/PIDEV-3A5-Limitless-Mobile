@@ -115,8 +115,8 @@ searchButton.setIcon(searchIcon);
 
 for(Livreur liv : list1){
     Label b = new Label(liv.getNom());
-    Label b2 = new Label(liv.getMail());
-    Label b3 = new Label(String.valueOf(liv.getTelephone()));
+   // Label b2 = new Label(liv.getMail());
+   // Label b3 = new Label(String.valueOf(liv.getTelephone()));
 
     hi.add(b);
     
